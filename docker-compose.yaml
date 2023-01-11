@@ -7,53 +7,51 @@ services:
         container_name: 'nginx'
         restart: always
         volumes:
-            - ./www:/usr/share/nginx/html
+            - ./www:/var/www
         ports:
             - 80:80
             - 443:443
+        links:
+            - phpfpm
     phpfpm:
-        build:
+        build: 
             context: ./bin/php/74
         container_name: 'phpfpm'
+        restart: 'always'
+        ports:
+            - 9000:9000
         volumes:
             - ./www:/var/www
-        environment:
-            XDEBUG_CONFIG: "remote_host=192.168.220.1 remote_enable=1 remote_autostart=off  remote_port=9008"
-            PHP_IDE_CONFIG: "serverName=first"
-        networks:
-            - web-network
-    database:
-        build:
-            context: ./bin/db/mysql/80
-        container_name: 'database'
-        restart: always
-        ports:
-            - 3306:3306
-        volumes:
-            - ./database/mysql:/var/lib/mysql
-            - ./logs/mysql:/var/log/mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: 123456789
-            MYSQL_DATABASE: docker
-            MYSQL_USER: docker
-            MYSQL_PASSWORD: 123456789
-    phpmyadmin:
-        image: 'phpmyadmin'
-        container_name: 'phpmyadmin'
-        links:
-            - database
-        environment:
-            PMA_HOST: database
-            PMA_PORT: 3306
-            PMA_USER: root
-            PMA_PASSWORD: 123456789
-            MYSQL_ROOT_PASSWORD: 123456789
-            MYSQL_USER: docker
-            MYSQL_PASSWORD: docker
-        ports:
-            - 8080:80
-        networks:
-            - web-network
+
+    # database:
+    #     build:
+    #         context: ./bin/db/mysql/80
+    #     container_name: 'database'
+    #     restart: always
+    #     ports:
+    #         - 3306:3306
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: 123456789
+    #         MYSQL_DATABASE: docker
+    #         MYSQL_USER: docker
+    #         MYSQL_PASSWORD: 123456789
+    # phpmyadmin:
+    #     image: 'phpmyadmin'
+    #     container_name: 'phpmyadmin'
+    #     links:
+    #         - database
+    #     environment:
+    #         PMA_HOST: database
+    #         PMA_PORT: 3306
+    #         PMA_USER: root
+    #         PMA_PASSWORD: 123456789
+    #         MYSQL_ROOT_PASSWORD: 123456789
+    #         MYSQL_USER: docker
+    #         MYSQL_PASSWORD: docker
+    #     ports:
+    #         - 8080:80
+    #     networks:
+    #         - web-network
 networks:
     web-network:
         driver: bridge            
