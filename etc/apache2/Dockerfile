@@ -1,0 +1,3 @@
+FROM httpd:2.4
+# ENV APACHE_RUN_USER=www
+# ENV APACHE_RUN_GROUP=www
