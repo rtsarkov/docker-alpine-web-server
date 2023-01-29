@@ -41,3 +41,7 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
 
 COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
+RUN apk add --update linux-headers
+RUN pecl install xdebug
+RUN docker-php-ext-enable xdebug

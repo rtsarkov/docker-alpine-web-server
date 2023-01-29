@@ -31,7 +31,7 @@ services:
             - web-network
     phpfpm:
         build:
-            context: ./etc/php/81
+            context: ./etc/php/${PHP_VERSION}
         container_name: ${APP_NAME}_phpfpm
         restart: always
         ports:

@@ -42,7 +42,13 @@ RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/i
 
 COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
+RUN apk add --update linux-headers
+RUN pecl install xdebug-2.8.0
+RUN docker-php-ext-enable xdebug
 
 RUN chown -R www-data:1000 /var/www
 
 USER www-data
+
+
