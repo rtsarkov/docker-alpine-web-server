@@ -23,8 +23,7 @@ services:
             - "./etc/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf"
             # - "./etc/apache2/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf"
             - ${APP_PATH}:/var/www/html
-            # - ./etc/apache2/certs/server.crt:/usr/local/apache2/conf/server.crt
-            # - ./etc/apache2/certs/server.key:/usr/local/apache2/conf/server.key
+            # - ./certs:/usr/local/apache2/ssl
         ports:
             - 80:80
             - 443:443
