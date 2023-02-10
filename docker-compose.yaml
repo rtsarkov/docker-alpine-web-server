@@ -39,20 +39,19 @@ services:
         ports:
             - 9000:9000
         volumes:
-            - ${APP_PATH}:/var/www/html
-            - /tmp/session:/tmp/session
+            - ${APP_PATH}:/var/www/html            
         networks:
             - web-network
 
-    nodejs:
-        build: ./etc/nodejs
-        container_name: ${APP_NAME}_nodejs
-        restart: "no"
-        entrypoint: sh /bin/entrypoint.sh
-        volumes:
-            - ${APP_PATH}/${APP_FRONTEND_SOURCE_PATH}:/var/www/html/${APP_FRONTEND_SOURCE_PATH}
-            - ${APP_PATH}/${APP_FRONTEND_DIST_PATH}:/var/www/html/${APP_FRONTEND_DIST_PATH}
-            - ./etc/nodejs/entrypoint.sh:/bin/entrypoint.sh
+    # nodejs:
+    #     build: ./etc/nodejs
+    #     container_name: ${APP_NAME}_nodejs
+    #     restart: "no"
+    #     entrypoint: sh /bin/entrypoint.sh
+    #     volumes:
+    #         - ${APP_PATH}/${APP_FRONTEND_SOURCE_PATH}:/var/www/html/${APP_FRONTEND_SOURCE_PATH}
+    #         - ${APP_PATH}/${APP_FRONTEND_DIST_PATH}:/var/www/html/${APP_FRONTEND_DIST_PATH}
+    #         - ./etc/nodejs/entrypoint.sh:/bin/entrypoint.sh
     database:
         build:
             context: ./etc/db/mariadb_10_3
