@@ -14,13 +14,14 @@ RUN apk add --update --no-cache \
     nano \
     freetype-dev \
     curl-dev \
-    libzip-dev
+    libzip-dev && \
+    rm -rf /var/cache/apk/*
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+#RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
 
 # Install php dependencies
@@ -36,12 +37,16 @@ RUN docker-php-ext-enable mbstring
 
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
     && docker-php-ext-install gd
-   
 
-RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
-RUN apk add --update linux-headers
-RUN pecl install xdebug
-RUN docker-php-ext-enable xdebug
+ENV XDEBUG_VERSION 3.0.0
+RUN apk --no-cache add --virtual .build-deps \
+        g++ \
+        autoconf \
+        make && \
+    pecl install xdebug-$XDEBUG_VERSION && \
+    docker-php-ext-enable xdebug && \
+    apk del .build-deps && \
+    rm -r /tmp/pear/*
 
 COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
