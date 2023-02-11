@@ -24,6 +24,7 @@ services:
             # - "./etc/apache2/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf"
             - ${APP_PATH}:/var/www/html
             # - ./certs:/usr/local/apache2/ssl
+            - "./logs/apache2/:/usr/local/apache2/logs"
         ports:
             - 80:80
             - 443:443
