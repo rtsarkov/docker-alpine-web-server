@@ -21,9 +21,8 @@ services:
         restart: always
         volumes:
             - "./etc/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf"
-            # - "./etc/apache2/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf"
-            - ${APP_PATH}:/var/www/html
-            # - ./certs:/usr/local/apache2/ssl
+            - "./etc/apache2/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf"
+            - ${APP_PATH}:/var/www/html            
             - "./logs/apache2/:/usr/local/apache2/logs"
         ports:
             - 80:80
