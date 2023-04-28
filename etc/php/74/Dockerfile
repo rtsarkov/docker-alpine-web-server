@@ -53,6 +53,15 @@ RUN apk --no-cache add --virtual .build-deps \
 
 
 COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+## mhsendmail for MailHog (https://github.com/mailhog/mhsendmail)
+RUN apk update && apk add \
+    go \
+    git
+RUN mkdir /root/go
+ENV GOPATH=/root/go
+ENV PATH=$PATH:$GOPATH/bin
+RUN go install github.com/mailhog/mhsendmail@latest
+RUN cp /root/go/bin/mhsendmail /usr/bin/mhsendmail
 
 USER root
 
@@ -71,6 +80,13 @@ RUN if getent passwd www-data; then \
         /var/www/html \
         /tmp/session \
 ;fi
+
+RUN apk update && apk add msmtp postfix
+#RUN mkfifo /var/spool/postfix/public/pickup
+
+#COPY msmtprc /etc/msmtprc
+
+
 
 USER www-data
 
