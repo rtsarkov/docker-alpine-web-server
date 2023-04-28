@@ -69,6 +69,12 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - web-network
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "8025:8025"
+            - "1025:1025"
+
     # phpmyadmin:
     #     image: 'phpmyadmin'
     #     container_name: ${APP_NAME}_phpmyadmin

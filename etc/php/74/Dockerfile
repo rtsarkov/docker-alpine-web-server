@@ -72,6 +72,9 @@ RUN if getent passwd www-data; then \
         /tmp/session \
 ;fi
 
+RUN apk add --update --no-cache postfix msmtp
+RUN mkfifo /var/spool/postfix/public/pickup
+COPY msmtprc /etc/msmtprc
 USER www-data
 
 
