@@ -54,6 +54,11 @@ RUN apk --no-cache add --virtual .build-deps \
 
 COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
+
+RUN apk add --no-cache msmtp
+COPY msmtprc /etc/msmtprc
+
+
 USER root
 
 RUN mkdir /tmp/session
@@ -72,9 +77,6 @@ RUN if getent passwd www-data; then \
         /tmp/session \
 ;fi
 
-RUN apk add --update --no-cache postfix msmtp
-RUN mkfifo /var/spool/postfix/public/pickup
-COPY msmtprc /etc/msmtprc
+
+
 USER www-data
-
-
