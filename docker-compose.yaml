@@ -39,7 +39,8 @@ services:
         ports:
             - 9000:9000
         volumes:
-            - ${APP_PATH}:/var/www/html            
+            - ${APP_PATH}:/var/www/html
+            - ./etc/smtp/msmtprc:/etc/msmtprc
         networks:
             - web-network
     mailhog:

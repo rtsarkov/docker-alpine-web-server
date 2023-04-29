@@ -56,8 +56,6 @@ COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
 
 RUN apk add --no-cache msmtp
-COPY msmtprc /etc/msmtprc
-
 
 USER root
 
