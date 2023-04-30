@@ -1,36 +1,23 @@
 version: '3.8'
 
 services:
-    # nginx:
-    #     build:
-    #         context: ./bin/nginx
-    #     container_name: 'nginx'
-    #     restart: always
-    #     volumes:
-    #         - ${APP_PATH}:/var/www
-    #     ports:
-    #         - 80:80
-    #         - 443:443
-    #     links:
-    #         - phpfpm
-
-    apache2:
-        build:
-            context: ./etc/apache2
-        container_name: ${APP_NAME}_apache2
-        restart: always
-        volumes:
-            - "./etc/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf"
-            - "./etc/apache2/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf"
-            - ${APP_PATH}:/var/www/html            
-            - "./logs/apache2/:/usr/local/apache2/logs"
-        ports:
-            - 80:80
-            - 443:443
-        depends_on:
-            - phpfpm
-        networks:
-            - web-network
+#    apache2:
+#        build:
+#            context: ./etc/apache2
+#        container_name: ${APP_NAME}_apache2
+#        restart: always
+#        volumes:
+#            - "./etc/apache2/httpd.conf:/usr/local/apache2/conf/httpd.conf"
+#            - "./etc/apache2/httpd-ssl.conf:/usr/local/apache2/conf/extra/httpd-ssl.conf"
+#            - ${APP_PATH}:/var/www/html
+#            - "./logs/apache2/:/usr/local/apache2/logs"
+#        ports:
+#            - 80:80
+#            - 443:443
+#        depends_on:
+#            - phpfpm
+#        networks:
+#            - web-network
     phpfpm:
         build:
             context: ./etc/php/${PHP_VERSION}
@@ -40,7 +27,24 @@ services:
             - 9000:9000
         volumes:
             - ${APP_PATH}:/var/www/html
+            - ./etc/php/${PHP_VERSION}/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./etc/smtp/msmtprc:/etc/msmtprc
+        networks:
+            - web-network
+    nginx:
+        build:
+            context: ./etc/nginx
+        container_name: ${APP_NAME}_nginx
+        restart: always
+        volumes:
+            - ${APP_PATH}:/var/www/html
+            - ./logs/nginx:/var/log/nginx
+            - ./etc/nginx/bitrix.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - phpfpm
         networks:
             - web-network
     mailhog:

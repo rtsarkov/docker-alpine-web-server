@@ -52,7 +52,7 @@ RUN apk --no-cache add --virtual .build-deps \
     rm -r /tmp/pear/*
 
 
-COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
+#COPY ./php.ini /usr/local/etc/php/conf.d/php.ini
 
 
 RUN apk add --no-cache msmtp
