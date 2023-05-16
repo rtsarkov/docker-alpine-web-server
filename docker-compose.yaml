@@ -49,7 +49,7 @@ services:
             - web-network
     mailhog:
         image: mailhog/mailhog
-        container_name: mailhog
+        container_name: ${APP_NAME}_mailhog
         volumes:
             - ./mailhog_mail:/mailhog
         environment:
