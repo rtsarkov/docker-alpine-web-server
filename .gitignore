@@ -6,3 +6,4 @@ certs
 tmp
 .idea
 .DS_Store
+sphinxdata
