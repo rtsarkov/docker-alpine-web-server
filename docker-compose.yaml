@@ -85,6 +85,16 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - web-network
+    sphinx:
+        build:
+            context: ./etc/sphinx
+        container_name: ${APP_NAME}_sphinx
+#        volumes:
+#            - ./etc/sphinx/sphinx.conf:/opt/sphinx/etc/sphinx.conf
+        ports:
+            - '9306:9306'
+        networks:
+            - web-network
 
     # phpmyadmin:
     #     image: 'phpmyadmin'
