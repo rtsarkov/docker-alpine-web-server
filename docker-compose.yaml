@@ -29,6 +29,8 @@ services:
             - ${APP_PATH}:/var/www/html
             - ./etc/php/${PHP_VERSION}/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./etc/smtp/msmtprc:/etc/msmtprc
+#         depends_on:
+#            - memcached
         networks:
             - web-network
     nginx:
@@ -85,6 +87,10 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - web-network
+    # memcached:
+    # image: memcached:alpine
+    # ports:
+    #  - "11211:11211"
     # sphinx:
     #     build:
     #         context: ./etc/sphinx
