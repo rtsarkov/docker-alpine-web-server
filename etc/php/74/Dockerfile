@@ -78,3 +78,5 @@ RUN if getent passwd www-data; then \
 
 
 USER www-data
+
+WORKDIR '/var/www/html'
