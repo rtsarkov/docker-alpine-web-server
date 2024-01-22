@@ -18,5 +18,5 @@ down:
 stop:
 	@docker-compose stop $(s)
 
-export_db:
+import_dump_db:
 	@/bin/bash import_db.sh
