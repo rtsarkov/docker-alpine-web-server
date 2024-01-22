@@ -29,7 +29,7 @@ services:
             - ${APP_PATH}:/var/www/html
             - ./etc/php/${PHP_VERSION}/php.ini:/usr/local/etc/php/conf.d/php.ini
             - ./etc/smtp/msmtprc:/etc/msmtprc
-#         depends_on:
+#        depends_on:
 #            - memcached
         networks:
             - web-network
@@ -61,15 +61,15 @@ services:
             - "1025:1025"
         networks:
             - web-network
-    # nodejs:
-    #     build: ./etc/nodejs
-    #     container_name: ${APP_NAME}_nodejs
-    #     restart: "no"
-    #     entrypoint: sh /bin/entrypoint.sh
-    #     volumes:
-    #         - ${APP_PATH}/${APP_FRONTEND_SOURCE_PATH}:/var/www/html/${APP_FRONTEND_SOURCE_PATH}
-    #         - ${APP_PATH}/${APP_FRONTEND_DIST_PATH}:/var/www/html/${APP_FRONTEND_DIST_PATH}
-    #         - ./etc/nodejs/entrypoint.sh:/bin/entrypoint.sh
+#    nodejs:
+#        build: ./etc/nodejs
+#        container_name: ${APP_NAME}_nodejs
+#        restart: "no"
+#        entrypoint: sh /bin/entrypoint.sh
+#        volumes:
+#            - ${APP_PATH}/${APP_FRONTEND_SOURCE_PATH}:/var/www/html/${APP_FRONTEND_SOURCE_PATH}
+#            - ${APP_PATH}/${APP_FRONTEND_DIST_PATH}:/var/www/html/${APP_FRONTEND_DIST_PATH}
+#            - ./etc/nodejs/entrypoint.sh:/bin/entrypoint.sh
     database:
         build:
             context: ./etc/db/mariadb_10_3
@@ -87,40 +87,40 @@ services:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         networks:
             - web-network
-    # memcached:
-    # image: memcached:alpine
-    # ports:
-    #  - "11211:11211"
-    # sphinx:
-    #     build:
-    #         context: ./etc/sphinx
-    #     container_name: ${APP_NAME}_sphinx
-    #     volumes:
-    #         - ./etc/sphinx/sphinx.conf:/etc/sphinxsearch/sphinx.conf
-    #         - ./sphinxdata:/var/lib/sphinxsearch/data
-    #     ports:
-    #         - '9306:9306'
-    #         - '9300:9300'
-    #     networks:
-    #         - web-network
+#    memcached:
+#        image: memcached:alpine
+#        ports:
+#        - "11211:11211"
+#    sphinx:
+#         build:
+#             context: ./etc/sphinx
+#         container_name: ${APP_NAME}_sphinx
+#         volumes:
+#             - ./etc/sphinx/sphinx.conf:/etc/sphinxsearch/sphinx.conf
+#             - ./sphinxdata:/var/lib/sphinxsearch/data
+#         ports:
+#             - '9306:9306'
+#             - '9300:9300'
+#         networks:
+#             - web-network
 
-    # phpmyadmin:
-    #     image: 'phpmyadmin'
-    #     container_name: ${APP_NAME}_phpmyadmin
-    #     links:
-    #         - database
-    #     environment:
-    #         PMA_HOST: database
-    #         PMA_PORT: 3306
-    #         PMA_USER: root
-    #         PMA_PASSWORD: 123456789
-    #         MYSQL_ROOT_PASSWORD: 123456789
-    #         MYSQL_USER: docker
-    #         MYSQL_PASSWORD: docker
-    #     ports:
-    #         - 8080:80
-    #     networks:
-    #         - web-network
+    phpmyadmin:
+         image: 'phpmyadmin'
+         container_name: ${APP_NAME}_phpmyadmin
+         links:
+             - database
+         environment:
+             PMA_HOST: database
+             PMA_PORT: 3306
+             PMA_USER: root
+             PMA_PASSWORD: 123456789
+             MYSQL_ROOT_PASSWORD: 123456789
+             MYSQL_USER: docker
+             MYSQL_PASSWORD: docker
+         ports:
+             - 8080:80
+         networks:
+             - web-network
 #    elasticsearch:
 #        image: bitnami/elasticsearch:latest
 #        container_name: elasticsearch
