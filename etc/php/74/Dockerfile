@@ -23,6 +23,16 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 #RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
+# Memcached
+# RUN apk add --no-cache --update libmemcached-libs zlib
+# RUN set -xe \
+#    && apk add --no-cache --update --virtual .phpize-deps $PHPIZE_DEPS \
+#    && apk add --no-cache --update --virtual .memcached-deps $MEMCACHED_DEPS \
+#    && pecl install memcached \
+#    && echo "extension=memcached.so" > /usr/local/etc/php/conf.d/20_memcached.ini \
+#    && rm -rf /usr/share/php7 \
+#    && rm -rf /tmp/* \
+#    && apk del .memcached-deps .phpize-deps
 
 # Install php dependencies
 RUN docker-php-ext-install \
