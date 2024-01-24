@@ -15,7 +15,7 @@ fi
 
 if [ -f "$DUMP_FILE" ]; then
 	echo "Начало импорта"
-	cat dump.sql | docker exec -i "$APP_NAME"_db mysql -h database -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
+	cat $DUMP_FILE | docker exec -i "$APP_NAME"_db mysql -h database -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$MYSQL_DATABASE"
 	echo "Импорт завершен"
 else
   echo "Файл $DUMP_FILE не найден."
