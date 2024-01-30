@@ -10,4 +10,8 @@ PORT_HOST='22';
 DIR_HOST="/var/www/html/";
 
 
-rsync -zarlPLi -e "ssh -i /home/<username>/.ssh/id_rsa -p ${PORT_HOST}" ${SSH_HOST}:${DIR_HOST} ${DIR_LOCAL}
+rsync -zarlPLi \
+  --exclude 'backup' \
+  --exclude 'cache' \
+  --exclude 'managed_cache' \
+  -e "ssh -i /home/${USER}/.ssh/id_rsa -p ${PORT_HOST}" ${SSH_HOST}:${DIR_HOST} ${DIR_LOCAL}
