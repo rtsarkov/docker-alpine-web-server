@@ -24,7 +24,7 @@ services:
         container_name: ${APP_NAME}_phpfpm
         restart: always
         ports:
-            - 9000:9000
+            - '${FPM_PORT:-9000}:9000'
         volumes:
             - ${APP_PATH}:/var/www/html
             - ./etc/php/${PHP_VERSION}/php.ini:/usr/local/etc/php/conf.d/php.ini
@@ -43,8 +43,8 @@ services:
             - ./logs/nginx:/var/log/nginx
             - ./etc/nginx/bitrix.conf:/etc/nginx/conf.d/default.conf
         ports:
-            - 80:80
-            - 443:443
+            - '${HTTP_PORT:-80}:80'
+            - '${HTTPS_PORT:-443}:443'
         depends_on:
             - phpfpm
         networks:
@@ -76,7 +76,7 @@ services:
         container_name: ${APP_NAME}_db
         restart: 'always'
         ports:
-            - '3306:3306'
+            - '${MYSQL_PORT:-3306}:3306'
         volumes:
             - ./data/mysql:/var/lib/mysql
             - ./logs/mysql:/var/log/mysql
