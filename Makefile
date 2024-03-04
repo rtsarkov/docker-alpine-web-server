@@ -4,7 +4,7 @@ php-exec:
 	@docker exec -it ${APP_NAME}_phpfpm bash
  
 db-exec:
-	@docker exec -it ${APP_NAME}_database bash
+	@docker exec -it ${APP_NAME}_db bash
 
 rebuild:
 	@docker-compose up -d --build
