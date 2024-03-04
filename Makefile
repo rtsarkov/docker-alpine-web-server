@@ -20,3 +20,6 @@ stop:
 
 import_dump_db:
 	@/bin/bash import_db.sh
+
+sync_files:
+	@/bin/bash sync-hosted-files.sh
