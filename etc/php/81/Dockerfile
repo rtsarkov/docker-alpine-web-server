@@ -35,8 +35,8 @@ RUN apk add --update --no-cache oniguruma-dev
 RUN docker-php-ext-install  mbstring
 RUN docker-php-ext-enable mbstring
 
-RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/ \
-    && docker-php-ext-install gd
+RUN docker-php-ext-configure gd --with-jpeg --with-freetype --with-webp && \
+    docker-php-ext-install gd
 
 
 ENV XDEBUG_VERSION 3.2.0
