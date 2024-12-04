@@ -1,0 +1,13 @@
+services:
+  sphinx:
+    build:
+      context: ../etc/sphinx
+    container_name: ${APP_NAME}_sphinx
+    volumes:
+      - ../etc/sphinx/sphinx.conf:/etc/sphinxsearch/sphinx.conf
+      - ../sphinxdata:/var/lib/sphinxsearch/data
+    ports:
+      - '9306:9306'
+      - '9300:9300'
+    networks:
+      - ${APP_NETWORK}

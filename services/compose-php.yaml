@@ -1,0 +1,15 @@
+services:
+  phpfpm:
+    build:
+      context: ../etc/php/${PHP_VERSION}
+    container_name: ${APP_NAME}_phpfpm
+    restart: always
+    ports:
+      - '${FPM_PORT:-9000}:9000'
+    volumes:
+      - .${APP_PATH}:/var/www/html
+      - ../etc/php/${PHP_VERSION}/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ../etc/php/${PHP_VERSION}/globals.php:/usr/local/etc/php/conf.d/globals.php
+      - ../etc/smtp/msmtprc:/etc/msmtprc
+    networks:
+      - ${APP_NETWORK}

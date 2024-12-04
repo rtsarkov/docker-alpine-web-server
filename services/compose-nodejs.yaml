@@ -1,0 +1,12 @@
+services:
+  nodejs:
+    build: ../etc/nodejs
+    container_name: ${APP_NAME}_nodejs
+    restart: "no"
+    entrypoint: sh /bin/entrypoint.sh
+    volumes:
+        - ${APP_PATH}/${APP_FRONTEND_SOURCE_PATH}:/var/www/html/${APP_FRONTEND_SOURCE_PATH}
+        - ${APP_PATH}/${APP_FRONTEND_DIST_PATH}:/var/www/html/${APP_FRONTEND_DIST_PATH}
+        - ../etc/nodejs/entrypoint.sh:/bin/entrypoint.sh
+    networks:
+      - ${APP_NETWORK}

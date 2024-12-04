@@ -1,0 +1,13 @@
+services:
+  mailhog:
+     image: mailhog/mailhog
+     container_name: ${APP_NAME}_mailhog
+     volumes:
+         - ../mailhog_mail:/mailhog
+     environment:
+         MH_STORAGE: maildir
+     ports:
+         - "8025:8025"
+         - "1025:1025"
+     networks:
+       - ${APP_NETWORK}

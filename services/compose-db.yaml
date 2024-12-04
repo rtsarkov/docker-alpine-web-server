@@ -1,0 +1,18 @@
+services:
+  database:
+     build:
+         context: ../etc/db/mariadb_10_3
+     container_name: ${APP_NAME}_db
+     restart: 'always'
+     ports:
+         - '${MYSQL_PORT:-3306}:3306'
+     volumes:
+         - ../data/mysql:/var/lib/mysql
+         - ../logs/mysql:/var/log/mysql
+     environment:
+         MYSQL_DATABASE: ${MYSQL_DATABASE}
+         MYSQL_USER: ${MYSQL_USER}
+         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+     networks:
+       - ${APP_NETWORK}

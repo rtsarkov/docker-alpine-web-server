@@ -1,0 +1,18 @@
+services:
+  phpmyadmin:
+    image: 'phpmyadmin'
+    container_name: ${APP_NAME}_phpmyadmin
+    links:
+        - database
+    environment:
+        PMA_HOST: database
+        PMA_PORT: ${MYSQL_PORT:-3306}
+        PMA_USER: root
+        PMA_PASSWORD: 123456789
+        MYSQL_ROOT_PASSWORD: 123456789
+        MYSQL_USER: developer
+        MYSQL_PASSWORD: 123456789
+    ports:
+        - 8080:80
+    networks:
+      - ${APP_NETWORK}

@@ -1,0 +1,10 @@
+services:
+  elasticsearch:
+    image: bitnami/elasticsearch:latest
+    container_name: elasticsearch
+    #        user: "1001:1001"
+    ports:
+        - '${FORWARD_ELASTICSEARCH_PORT:-9200}:9200'
+        - '${FORWARD_ELASTICSEARCH_PORT:-9300}:9300'
+    networks:
+      - ${APP_NETWORK}
