@@ -1,0 +1,13 @@
+services:
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRESQL_PASSWORD: ${POSTGRE_PASSWORD}
+      POSTGRESQL_USERNAME: ${POSTGRE_USER}
+      POSTGRESQL_DATABASE: ${POSTGRE_DATABASE}
+    networks:
+       - ${APP_NETWORK}
