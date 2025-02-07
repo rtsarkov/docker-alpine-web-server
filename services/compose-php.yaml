@@ -1,8 +1,8 @@
 services:
-  phpfpm:
+  php:
     build:
       context: ../etc/php/${PHP_VERSION}
-    container_name: ${APP_NAME}_phpfpm
+    container_name: ${APP_NAME}_php
     restart: always
     ports:
       - '${FPM_PORT:-9000}:9000'

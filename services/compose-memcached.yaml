@@ -1,6 +1,7 @@
 services:
   memcached:
     image: memcached:alpine
+    container_name: ${APP_NAME}_memcached
     ports:
       - "11211:11211"
     networks:

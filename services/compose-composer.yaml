@@ -1,0 +1,10 @@
+services:
+  composer:
+    image: composer:${COMPOSER_VERSION}
+    volumes:
+      - .${COMPOSER_SRC}:/src
+    working_dir: /src
+    profiles:
+      - composer-deps
+    # environment:
+    #   - COMPOSER_MEMORY_LIMIT=-1

@@ -1,6 +1,6 @@
 services:
   clickhouse:
-    container_name: clickhouse
+    container_name: ${APP_NAME}_clickhouse
     image: yandex/clickhouse-server:21.8-alpine
     volumes:
         - ../.docker-volume-clickhouse:/var/lib/clickhouse
