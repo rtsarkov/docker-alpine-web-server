@@ -1,16 +1,59 @@
 #!/bin/bash
 
+# Цветовые коды ANSI
+RED='\033[1;31m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;34m'
+CYAN='\033[1;36m'
+RESET='\033[0m'
+
+# Функция для вывода справки
+show_help() {
+    echo -e "${CYAN}Usage:${RESET} $0 ${YELLOW}<service>${RESET} ${GREEN}<command>${RESET} [${BLUE}arguments...${RESET}]"
+    echo ""
+    echo -e "${CYAN}Manage services using Docker Compose.${RESET}"
+    echo ""
+    echo -e "${YELLOW}Available services:${RESET}"
+    echo -e "  ${GREEN}php${RESET}        - PHP service commands"
+    echo -e "  ${GREEN}nginx${RESET}      - Nginx service commands"
+    echo -e "  ${GREEN}composer${RESET}   - Composer commands"
+    echo -e "  ${GREEN}database${RESET}   - Database service commands"
+    echo -e "  ${GREEN}apache2${RESET}    - Apache service commands"
+    echo -e "  ${GREEN}clickhouse${RESET} - ClickHouse service commands"
+    echo -e "  ${GREEN}elastic${RESET}    - Elasticsearch service commands"
+    echo -e "  ${GREEN}kibana${RESET}     - Kibana service commands"
+    echo -e "  ${GREEN}memcached${RESET}  - Memcached service commands"
+    echo -e "  ${GREEN}sphinx${RESET}     - Sphinx service commands"
+    echo ""
+    echo -e "${YELLOW}Common commands:${RESET}"
+    echo -e "  ${BLUE}up${RESET}         - Start services"
+    echo -e "  ${BLUE}down${RESET}       - Stop services"
+    echo -e "  ${BLUE}restart${RESET}    - Restart services"
+    echo -e "  ${BLUE}logs${RESET}       - View service logs"
+    echo -e "  ${BLUE}exec${RESET}       - Execute a command inside a running container"
+    echo ""
+    echo -e "${YELLOW}Examples:${RESET}"
+    echo -e "  ${GREEN}$0 composer install${RESET}        # Run 'install' in Composer"
+    echo -e "  ${GREEN}$0 php exec php -v${RESET}         # Execute 'php -v' inside PHP container"
+    echo -e "  ${GREEN}$0 nginx restart${RESET}           # Restart Nginx service"
+    echo -e "  ${GREEN}$0 up -d${RESET}                   # Start all services in detached mode"
+    echo ""
+    exit 0
+}
+
+
+
 # Проверяем, передан ли хотя бы один аргумент
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <service> <command> [arguments...]"
-    echo "Available services: php, nginx, composer, database, apache2, clickhouse, clickhouse, kibana, memcached, sphinx"
-    echo "Common commands: up, down, restart, logs, exec"
-    echo "Examples:"
-    echo "  $0 composer install"
-    echo "  $0 php exec php -v"
-    echo "  $0 nginx restart"
-    echo "  $0 up -d"
+    echo "Error: No arguments provided."
+    echo "Try '$0 --help' for more information."
     exit 1
+fi
+
+# Если передан --help, показываем справку
+if [[ "$1" == "--help" ]]; then
+    show_help
 fi
 
 # Получаем первый аргумент
@@ -21,12 +64,6 @@ shift
 if [[ "$SERVICE" =~ ^(up|down|restart|logs|ps)$ ]]; then
     docker compose "$SERVICE" "$@"
     exit 0
-fi
-
-# Проверяем, передан ли второй аргумент (команда для сервиса)
-if [ $# -lt 1 ]; then
-    echo "Missing command for service: $SERVICE"
-    exit 1
 fi
 
 COMMAND=$1
@@ -69,7 +106,8 @@ case $SERVICE in
         run_common_command $SERVICE "$COMMAND" "$@"
         ;;
     *)
-        echo "Unknown service: $SERVICE"
+        echo "Error: Unknown service '$SERVICE'."
+        echo "Try '$0 --help' for available services."
         exit 1
         ;;
 esac
