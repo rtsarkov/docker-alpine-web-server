@@ -1,7 +1,7 @@
 include:
 #    - ./services/compose-nginx.yaml
-#    - ./services/compose-php.yaml
-#    - ./services/compose-composer.yaml
+    - ./services/compose-php.yaml
+    - ./services/compose-composer.yaml
 #    - ./services/compose-mysql.yaml
 #    - ./services/compose-mailhog.yaml
 #    - ./services/compose-phpmyadmin.yaml

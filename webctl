@@ -76,6 +76,9 @@ run_common_command() {
     shift 2
     case $command in
         "up")
+            docker compose up $service "$@"
+            ;;
+        "up -d")
             docker compose up -d $service "$@"
             ;;
         "down")
