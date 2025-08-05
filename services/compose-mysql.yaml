@@ -1,7 +1,7 @@
 services:
   database:
      build:
-         context: ../etc/db/mariadb_10_3
+         context: ../etc/db/mysql/80
      container_name: ${APP_NAME}_database
      restart: 'always'
      ports:
