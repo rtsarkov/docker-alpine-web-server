@@ -8,3 +8,5 @@ services:
       - composer-deps
     # environment:
     #   - COMPOSER_MEMORY_LIMIT=-1
+    networks:
+      - ${APP_NETWORK}
